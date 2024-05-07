@@ -1,0 +1,36 @@
+package com.phamhieu2106.quanlygiaidaubongdaBE.enumeration;
+
+public enum Position {
+
+    GK,
+    SW,
+    CB,
+    LCB,
+    RCB,
+    FB,
+    LB,
+    RB,
+    WB,
+    LWB,
+    RWB,
+    DM,
+    CDM,
+    LDM,
+    RDM,
+    CM,
+    LCM,
+    RCM,
+    WM,
+    LM,
+    RM,
+    AM,
+    CAM,
+    LAM,
+    RAM,
+    WF,
+    LWF,
+    RWF,
+    CF,
+    LCF,
+    RCF
+}
