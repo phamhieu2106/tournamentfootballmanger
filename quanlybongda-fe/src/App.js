@@ -21,6 +21,8 @@ import { AddFormTeamComponent } from "./component/team/component/AddFormComponen
 import { UpdateTeamFormComponent } from "./component/team/component/UpdateFormComponent";
 import { HomePageComponent } from "./component/home-page/HomePageComponent";
 import { StadiumComponent } from "./component/stadium/StadiumComponent";
+import { FormAddStadiumComponent } from "./component/stadium/component/FormAddStadiumComponent";
+import { FormUpdateStadiumComponent } from "./component/stadium/component/FormUpdateStadiumComponent";
 const { Header, Sider, Content } = Layout;
 
 function App() {
@@ -28,10 +30,6 @@ function App() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
-  function handleNavigate(key) {
-    window.location.href = key;
-  }
 
   const items = [
     {
@@ -60,7 +58,7 @@ function App() {
       label: <Link to={"/teams"}>Đội Bóng</Link>,
     },
     {
-      key: "5",
+      key: "6",
       icon: <VideoCameraOutlined />,
       label: <Link to={"/stadiums"}>Sân Vận Động</Link>,
     },
@@ -130,6 +128,14 @@ function App() {
               element={<UpdateTeamFormComponent />}
             ></Route>
             <Route path="/stadiums" element={<StadiumComponent />}></Route>
+            <Route
+              path="/stadiums/them-moi"
+              element={<FormAddStadiumComponent />}
+            ></Route>
+            <Route
+              path="/stadiums/:id"
+              element={<FormUpdateStadiumComponent />}
+            ></Route>
           </Routes>
         </Content>
         <Footer style={{ textAlign: "center" }}>

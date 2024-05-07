@@ -6,7 +6,6 @@ import {
   Input,
   Radio,
   Select,
-  Space,
   message,
 } from "antd";
 import React, { useEffect, useState } from "react";
@@ -26,16 +25,6 @@ export const AddFormComponent = () => {
       setNations(result);
     } catch (error) {
       console.log(error);
-    } finally {
-    }
-  };
-
-  //   Function
-  let sortedNations = [...nations];
-  const sortNationsByName = () => {
-    if (Array.isArray(nations)) {
-      sortedNations = [...nations];
-      sortedNations.sort((a, b) => a.nationName.localeCompare(b.nationName));
     }
   };
 
@@ -60,10 +49,6 @@ export const AddFormComponent = () => {
   useEffect(() => {
     fetchDataNations();
   }, []);
-
-  useEffect(() => {
-    sortNationsByName();
-  }, [nations]);
 
   return (
     <>
@@ -143,7 +128,7 @@ export const AddFormComponent = () => {
           ]}
         >
           <Select
-            options={nations.map((nation) => ({
+            options={nations?.map((nation) => ({
               label: nation.nationName,
               value: nation.id,
             }))}

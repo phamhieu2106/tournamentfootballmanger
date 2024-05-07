@@ -1,6 +1,5 @@
 import {
   Button,
-  DatePicker,
   Divider,
   Form,
   Input,
@@ -11,7 +10,7 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { listNations } from "../../../api/NationAPI";
-import { addCoach, getCoach, updateCoach } from "../../../api/CoachAPI";
+import { getCoach, updateCoach } from "../../../api/CoachAPI";
 import { useNavigate, useParams } from "react-router-dom";
 export const UpdateFormComponent = () => {
   let { id } = useParams(null);
@@ -37,14 +36,6 @@ export const UpdateFormComponent = () => {
     } catch (error) {
       console.log(error.error.message);
     } finally {
-    }
-  };
-  //   Function
-  let sortedNations = [...nations];
-  const sortNationsByName = () => {
-    if (Array.isArray(nations)) {
-      sortedNations = [...nations];
-      sortedNations.sort((a, b) => a.nationName.localeCompare(b.nationName));
     }
   };
 
@@ -80,12 +71,6 @@ export const UpdateFormComponent = () => {
       fetchDataCoach();
     }
   }, [id]);
-
-  useEffect(() => {
-    if (nations) {
-      sortNationsByName();
-    }
-  }, [nations]);
 
   useEffect(() => {
     if (coach) {
@@ -161,7 +146,7 @@ export const UpdateFormComponent = () => {
           ]}
         >
           <Select
-            options={nations.map((nation) => ({
+            options={nations?.map((nation) => ({
               label: nation.nationName,
               value: nation.id,
             }))}
