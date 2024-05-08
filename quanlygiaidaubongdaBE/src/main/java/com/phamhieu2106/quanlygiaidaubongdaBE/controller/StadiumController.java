@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/stadiums")
+@RequestMapping("api/stadiums")
 public class StadiumController implements IController<ResponseEntity<?>, StadiumRequest> {
 
     private final StadiumService service;
@@ -44,7 +44,7 @@ public class StadiumController implements IController<ResponseEntity<?>, Stadium
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id,
                                     @Valid @ModelAttribute StadiumRequest object) throws IOException {
-        return ResponseEntity.ok(service.update(id,object));
+        return ResponseEntity.ok(service.update(id, object));
     }
 
     @Override

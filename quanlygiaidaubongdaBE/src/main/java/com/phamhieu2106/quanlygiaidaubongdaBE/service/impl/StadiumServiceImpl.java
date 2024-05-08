@@ -4,7 +4,6 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.dto.request.StadiumRequest;
 import com.phamhieu2106.quanlygiaidaubongdaBE.dto.response.StadiumResponse;
 import com.phamhieu2106.quanlygiaidaubongdaBE.entity.Stadium;
 import com.phamhieu2106.quanlygiaidaubongdaBE.entity.Team;
-import com.phamhieu2106.quanlygiaidaubongdaBE.exception.InvalidRequestException;
 import com.phamhieu2106.quanlygiaidaubongdaBE.exception.NotFoundException;
 import com.phamhieu2106.quanlygiaidaubongdaBE.repository.StadiumRepository;
 import com.phamhieu2106.quanlygiaidaubongdaBE.service.StadiumService;
@@ -48,10 +47,6 @@ public class StadiumServiceImpl implements StadiumService {
 
     @Override
     public Stadium add(StadiumRequest object) {
-        if (!validateRequest(object)) {
-            return null;
-        }
-
         Stadium stadium = Stadium.builder()
                 .nameStadium(object.getNameStadium())
                 .capacity(object.getCapacity())
@@ -64,10 +59,6 @@ public class StadiumServiceImpl implements StadiumService {
 
     @Override
     public Stadium update(Long id, StadiumRequest object) {
-        if (!validateRequest(object)) {
-            return null;
-        }
-
         stadiumRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Not found Stadium with id: " + id));
 
@@ -87,26 +78,4 @@ public class StadiumServiceImpl implements StadiumService {
         return null;
     }
 
-    private boolean validateRequest(StadiumRequest request) {
-//        check name
-        if (request.getNameStadium().trim().isBlank() || request.getNameStadium().trim().isEmpty()) {
-            throw new InvalidRequestException("Empty name for stadium");
-        }
-        if (stadiumRepository.existsStadiumByNameStadium(request.getNameStadium().trim())) {
-            throw new InvalidRequestException("Name for stadium is used");
-        }
-//        Check capacity
-        try {
-            if (request.getCapacity() <= 0) {
-                throw new InvalidRequestException("Capacity for stadium can't be 0");
-            }
-        } catch (Exception exception) {
-            throw new InvalidRequestException("Capacity for stadium is not a number");
-        }
-//        Check location
-        if (request.getLocation().trim().isBlank() || request.getLocation().trim().isEmpty()) {
-            throw new InvalidRequestException("Empty location for stadium");
-        }
-        return true;
-    }
 }

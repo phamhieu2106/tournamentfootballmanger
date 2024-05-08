@@ -31,6 +31,10 @@ export const addStadium = async (values) => {
   console.log(values);
   try {
     const formData = new FormData();
+    formData.append("nameStadium", values.nameStadium);
+    formData.append("capacity", values.capacity);
+    formData.append("location", values.location);
+    formData.append("idTeam", values.idTeam ? values.idTeam : null);
     const response = await axios.post(REST_API_BASE_URL, formData);
     return response.data;
   } catch (err) {
@@ -42,6 +46,10 @@ export const addStadium = async (values) => {
 export const updateStadium = async (id, values) => {
   try {
     const formData = new FormData();
+    formData.append("nameStadium", values.nameStadium);
+    formData.append("capacity", values.capacity);
+    formData.append("location", values.location);
+    formData.append("idTeam", values.idTeam);
     const response = await axios.put(`${REST_API_BASE_URL}/${id}`, formData);
     return response.data;
   } catch (err) {

@@ -47,11 +47,11 @@ function App() {
       icon: <VideoCameraOutlined />,
       label: <Link to={"/coaches"}>Huấn Luyện Viên</Link>,
     },
-    {
-      key: "4",
-      icon: <VideoCameraOutlined />,
-      label: <Link to={"/players"}>Cầu Thủ</Link>,
-    },
+    // {
+    //   key: "4",
+    //   icon: <VideoCameraOutlined />,
+    //   label: <Link to={"/players"}>Cầu Thủ</Link>,
+    // },
     {
       key: "5",
       icon: <VideoCameraOutlined />,

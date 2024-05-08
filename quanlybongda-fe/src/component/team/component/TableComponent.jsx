@@ -29,7 +29,7 @@ export const TableTeamComponent = () => {
       title: "Chủ Tịch",
       dataIndex: "president",
       key: "president",
-      render: (_, record) => <p>{record.president} Người</p>,
+      render: (_, record) => <p>{record.president}</p>,
     },
     {
       title: "Huấn Luyện Viên Trưởng",

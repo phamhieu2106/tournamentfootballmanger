@@ -58,10 +58,10 @@ export const FormUpdateStadiumComponent = () => {
   useEffect(() => {
     if (stadium) {
       form.setFieldsValue({
-        nameStadium: stadium.name,
+        nameStadium: stadium.nameStadium,
         capacity: stadium.capacity,
         location: stadium.location,
-        idTeam: stadium.team.idTeam,
+        idTeam: stadium.team.id,
       });
     }
   }, [stadium]);
@@ -114,7 +114,7 @@ export const FormUpdateStadiumComponent = () => {
         >
           <Input placeholder="vị trí" />
         </Form.Item>
-        <Form.Item label="Quốc Gia:" name="idNation">
+        <Form.Item label="Đội Bóng:" name="idTeam">
           <Select
             options={teams?.map((team) => ({
               label: team.teamName,

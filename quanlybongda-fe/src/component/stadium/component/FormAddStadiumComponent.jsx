@@ -2,6 +2,7 @@ import { Button, Divider, Form, Input, Select, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { addStadium, listStadium } from "../../../api/StadiumAPI";
+import { listTeams } from "../../../api/TeamAPI";
 
 export const FormAddStadiumComponent = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export const FormAddStadiumComponent = () => {
   //   FetchDATA
   const fetchDataTeams = async () => {
     try {
-      const result = await listStadium();
+      const result = await listTeams();
       setTeams(result);
     } catch (error) {
       console.log(error);
@@ -69,12 +70,11 @@ export const FormAddStadiumComponent = () => {
           rules={[
             {
               required: true,
-              type: "integer",
               message: "Không được để trống sức chứa sân vận động!",
             },
           ]}
         >
-          <Input placeholder="sức chứa" />
+          <Input type="number" placeholder="sức chứa" />
         </Form.Item>
         <Form.Item
           rules={[
@@ -88,9 +88,9 @@ export const FormAddStadiumComponent = () => {
         >
           <Input placeholder="vị trí" />
         </Form.Item>
-        <Form.Item label="Quốc Gia:" name="idNation">
+        <Form.Item label="Đội bóng:" name="idTeam">
           <Select
-            options={teams?.map((team) => ({
+            options={teams.map((team) => ({
               label: team.teamName,
               value: team.id,
             }))}

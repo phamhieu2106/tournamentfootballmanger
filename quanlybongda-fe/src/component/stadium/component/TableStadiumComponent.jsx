@@ -64,7 +64,7 @@ export const TableStadiumComponent = () => {
         key: index,
         no: index + 1,
         id: item.id,
-        nameStadium: item.name,
+        nameStadium: item.nameStadium,
         capacity: item.capacity,
         team: item.team?.image?.pictureURL,
         location: item.location,
