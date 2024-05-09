@@ -9,7 +9,8 @@ import lombok.*;
 @Getter
 @Setter
 @Table(name = "standing")
-public class Standing extends BaseEntity{
+@Builder
+public class Standing extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +20,11 @@ public class Standing extends BaseEntity{
 
     private Integer matchPlayed;
 
-    @OneToOne
-    @JoinColumn(name = "id_team",referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "id_team", referencedColumnName = "id")
     private Team team;
 
     @ManyToOne
-    @JoinColumn(name = "id_tournament",referencedColumnName = "id")
+    @JoinColumn(name = "id_tournament", referencedColumnName = "id")
     private Tournament tournament;
 }

@@ -1,7 +1,5 @@
 package com.phamhieu2106.quanlygiaidaubongdaBE.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
@@ -16,25 +14,18 @@ import java.time.LocalDateTime;
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity{
+public class BaseEntity {
 
-    @Column(updatable = false)
     @CreatedDate
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime createdAt;
 
-    @Column(updatable = false)
     @CreatedBy
     private String createdBy;
 
-    @Column(insertable = false)
     @LastModifiedDate
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime updatedAt;
 
-    @Column(insertable = false)
     @LastModifiedBy
     private String lastUpdatedBy;
-
 
 }

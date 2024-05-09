@@ -1,5 +1,6 @@
 package com.phamhieu2106.quanlygiaidaubongdaBE.entity;
 
+import com.phamhieu2106.quanlygiaidaubongdaBE.enumeration.TournamentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "tournament")
-public class Tournament extends BaseEntity{
+@Builder
+public class Tournament extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +25,8 @@ public class Tournament extends BaseEntity{
 
     private LocalDate endDate;
 
+    private Integer totalRound;
+
+    @Enumerated(EnumType.STRING)
+    private TournamentStatus tournamentStatus;
 }
