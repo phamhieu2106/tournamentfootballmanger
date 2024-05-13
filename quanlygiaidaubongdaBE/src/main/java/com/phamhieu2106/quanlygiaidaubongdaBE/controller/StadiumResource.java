@@ -12,12 +12,12 @@ import java.io.IOException;
 @RestController
 @CrossOrigin
 @RequestMapping("api/stadiums")
-public class StadiumController implements IController<ResponseEntity<?>, StadiumRequest> {
+public class StadiumResource implements IResource<ResponseEntity<?>, StadiumRequest> {
 
     private final StadiumService service;
 
     @Autowired
-    public StadiumController(StadiumService service) {
+    public StadiumResource(StadiumService service) {
         super();
         this.service = service;
     }

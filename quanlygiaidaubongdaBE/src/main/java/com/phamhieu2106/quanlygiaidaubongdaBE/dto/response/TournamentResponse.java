@@ -1,5 +1,6 @@
 package com.phamhieu2106.quanlygiaidaubongdaBE.dto.response;
 
+import com.phamhieu2106.quanlygiaidaubongdaBE.entity.Image;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -14,5 +15,9 @@ public class TournamentResponse {
 
     private LocalDate endDate;
 
-    private Integer totalRound;
+    private int numberTeam;
+
+    private int totalRound;
+
+    private Image image;
 }

@@ -2,7 +2,7 @@ package com.phamhieu2106.quanlygiaidaubongdaBE.controller;
 
 import java.io.IOException;
 
-public interface IController <RE,RQ>{
+public interface IResource<RE, RQ> {
 
     RE getAll();
 
@@ -10,7 +10,7 @@ public interface IController <RE,RQ>{
 
     RE add(RQ object) throws IOException;
 
-    RE update(Long id,RQ object) throws IOException;
+    RE update(Long id, RQ object) throws IOException;
 
     RE remove(Long id);
 }

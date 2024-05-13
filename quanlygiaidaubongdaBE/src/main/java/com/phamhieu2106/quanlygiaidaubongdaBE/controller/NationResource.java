@@ -12,13 +12,13 @@ import java.io.IOException;
 @CrossOrigin
 @RestController
 @RequestMapping("api/nations")
-public class NationController implements IController<ResponseEntity<?>, NationRequest> {
+public class NationResource implements IResource<ResponseEntity<?>, NationRequest> {
 
     private final NationService nationService;
 
 
     @Autowired
-    public NationController(NationService nationService) {
+    public NationResource(NationService nationService) {
         super();
         this.nationService = nationService;
     }

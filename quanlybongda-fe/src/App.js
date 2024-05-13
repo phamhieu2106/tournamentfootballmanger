@@ -23,6 +23,8 @@ import { HomePageComponent } from "./component/home-page/HomePageComponent";
 import { StadiumComponent } from "./component/stadium/StadiumComponent";
 import { FormAddStadiumComponent } from "./component/stadium/component/FormAddStadiumComponent";
 import { FormUpdateStadiumComponent } from "./component/stadium/component/FormUpdateStadiumComponent";
+import { TournamentComponent } from "./component/tournament/TournamentComponent";
+import { FormAddTournamentComponent } from "./component/tournament/component/FormAddTournamentComponent";
 const { Header, Sider, Content } = Layout;
 
 function App() {
@@ -38,6 +40,11 @@ function App() {
       label: <Link to={"/"}>Trang Chủ</Link>,
     },
     {
+      key: "4",
+      icon: <VideoCameraOutlined />,
+      label: <Link to={"/tournaments"}>Giải Đấu</Link>,
+    },
+    {
       key: "1",
       icon: <UploadOutlined />,
       label: <Link to={"/nations"}>Quốc Gia</Link>,
@@ -47,11 +54,6 @@ function App() {
       icon: <VideoCameraOutlined />,
       label: <Link to={"/coaches"}>Huấn Luyện Viên</Link>,
     },
-    // {
-    //   key: "4",
-    //   icon: <VideoCameraOutlined />,
-    //   label: <Link to={"/players"}>Cầu Thủ</Link>,
-    // },
     {
       key: "5",
       icon: <VideoCameraOutlined />,
@@ -103,6 +105,14 @@ function App() {
         >
           <Routes>
             <Route path="/" element={<HomePageComponent />}></Route>
+            <Route
+              path="/tournaments"
+              element={<TournamentComponent />}
+            ></Route>
+            <Route
+              path="/tournaments/them-moi"
+              element={<FormAddTournamentComponent />}
+            ></Route>
             <Route path="/nations" element={<NationalComponent />}></Route>
             <Route path="/coaches" element={<CoachComponent />}></Route>
             <Route

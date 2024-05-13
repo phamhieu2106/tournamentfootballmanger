@@ -11,11 +11,11 @@ import java.io.IOException;
 @RestController
 @CrossOrigin
 @RequestMapping("api/tournaments")
-public class TournamentController implements IController<ResponseEntity<?>, TournamentRequest> {
+public class TournamentResource implements IResource<ResponseEntity<?>, TournamentRequest> {
 
     private final TournamentService tournamentService;
 
-    public TournamentController(TournamentService tournamentService) {
+    public TournamentResource(TournamentService tournamentService) {
         super();
         this.tournamentService = tournamentService;
     }

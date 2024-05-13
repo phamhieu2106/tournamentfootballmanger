@@ -1,7 +1,6 @@
 package com.phamhieu2106.quanlygiaidaubongdaBE.controller;
 
 import com.phamhieu2106.quanlygiaidaubongdaBE.dto.request.TeamRequest;
-import com.phamhieu2106.quanlygiaidaubongdaBE.dto.response.TeamResponse;
 import com.phamhieu2106.quanlygiaidaubongdaBE.service.TeamService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +12,12 @@ import java.io.IOException;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/teams")
-public class TeamController implements IController<ResponseEntity<?>, TeamRequest> {
+public class TeamResource implements IResource<ResponseEntity<?>, TeamRequest> {
 
     private final TeamService teamService;
 
     @Autowired
-    public TeamController(TeamService teamService) {
+    public TeamResource(TeamService teamService) {
         super();
         this.teamService = teamService;
     }
@@ -45,7 +44,7 @@ public class TeamController implements IController<ResponseEntity<?>, TeamReques
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id,
                                     @Valid @ModelAttribute TeamRequest object) throws IOException {
-        return ResponseEntity.ok(teamService.update(id,object));
+        return ResponseEntity.ok(teamService.update(id, object));
     }
 
     @Override

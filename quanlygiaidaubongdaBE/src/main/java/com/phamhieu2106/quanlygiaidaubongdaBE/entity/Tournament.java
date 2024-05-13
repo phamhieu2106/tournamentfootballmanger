@@ -27,6 +27,10 @@ public class Tournament extends BaseEntity {
 
     private Integer totalRound;
 
+    @OneToOne
+    @JoinColumn(name = "id_image", referencedColumnName = "id")
+    private Image image;
+
     @Enumerated(EnumType.STRING)
     private TournamentStatus tournamentStatus;
 }
