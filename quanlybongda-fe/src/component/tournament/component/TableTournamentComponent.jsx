@@ -38,16 +38,16 @@ export const TableTournamentComponent = () => {
       render: (_, record) => <p>{record.endDate}</p>,
     },
     {
-      title: "Số Đội Bóng",
-      dataIndex: "numberTeam",
-      key: "numberTeam",
-      render: (_, record) => <p>{record.numberTeam}</p>,
-    },
-    {
       title: "Tổng Số Vòng",
       dataIndex: "totalRound",
       key: "totalRound",
       render: (_, record) => <p>{record.totalRound}</p>,
+    },
+    {
+      title: "Trạng Thái",
+      dataIndex: "status",
+      key: "status",
+      render: (_, record) => <strong>{record.status}</strong>,
     },
     {
       title: "Hành Động",
@@ -74,11 +74,12 @@ export const TableTournamentComponent = () => {
         nameTournament: item.nameTournament,
         startDate: item.startDate,
         endDate: item.endDate,
-        numberTeam: item.numberTeam,
         totalRound: item.totalRound,
+        status: item.status,
         image: item.image?.pictureURL,
       }));
       setData(row);
+      console.log(row);
     } catch (error) {
       console.log(error);
     } finally {
