@@ -53,10 +53,9 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public List<TournamentResponse> getAll() {
 
-        return tournamentRepository.getAll().stream().map(
-                tournament -> modelMapper.map(tournamentRepository.findAll(), TournamentResponse.class)
+        return tournamentRepository.findAll().stream().map(
+                tournament -> modelMapper.map(tournament, TournamentResponse.class)
         ).toList();
-
     }
 
     @Override
@@ -150,20 +149,19 @@ public class TournamentServiceImpl implements TournamentService {
                 this::mapIdToTeam
         ).toList();
 
-        return teamList.stream().map(
-                team -> handleSaveStanding(team, tournament)
-        ).count();
+        teamList.forEach(team -> handleSaveStanding(team, tournament));
+
+        return teamList.size();
     }
 
-    private Standing handleSaveStanding(Team team, Tournament tournament) {
+    private void handleSaveStanding(Team team, Tournament tournament) {
         Standing standing = Standing.builder()
                 .matchPlayed(0)
                 .points(0)
                 .team(team)
                 .tournament(tournament)
                 .build();
-
-        return standingRepository.save(standing);
+        standingRepository.save(standing);
     }
 
     private void handleRemoveStanding(List<Standing> standings) {

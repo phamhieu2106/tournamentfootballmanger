@@ -1,4 +1,4 @@
-package com.phamhieu2106.quanlygiaidaubongdaBE.controller;
+package com.phamhieu2106.quanlygiaidaubongdaBE.resource;
 
 import com.phamhieu2106.quanlygiaidaubongdaBE.dto.request.TournamentRequest;
 import com.phamhieu2106.quanlygiaidaubongdaBE.service.TournamentService;
@@ -34,14 +34,14 @@ public class TournamentResource implements IResource<ResponseEntity<?>, Tourname
 
     @Override
     @PostMapping
-    public ResponseEntity<?> add(@Valid @RequestBody TournamentRequest object) throws IOException {
+    public ResponseEntity<?> add(@Valid @ModelAttribute TournamentRequest object) throws IOException {
         return ResponseEntity.ok(tournamentService.add(object));
     }
 
     @Override
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id,
-                                    @Valid @RequestBody TournamentRequest object) throws IOException {
+                                    @Valid @ModelAttribute TournamentRequest object) throws IOException {
         return ResponseEntity.ok(tournamentService.update(id, object));
     }
 

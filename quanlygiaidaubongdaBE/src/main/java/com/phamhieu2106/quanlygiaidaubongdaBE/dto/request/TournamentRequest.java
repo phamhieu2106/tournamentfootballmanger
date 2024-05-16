@@ -24,7 +24,7 @@ public class TournamentRequest {
 
     @NotNull
     private MultipartFile imageFile;
-    
+
     public Tournament map(Tournament tournament) {
 
         tournament.setNameTournament(this.getNameTournament());

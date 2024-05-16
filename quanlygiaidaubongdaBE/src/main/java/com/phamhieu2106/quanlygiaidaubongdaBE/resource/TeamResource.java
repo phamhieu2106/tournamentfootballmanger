@@ -1,4 +1,4 @@
-package com.phamhieu2106.quanlygiaidaubongdaBE.controller;
+package com.phamhieu2106.quanlygiaidaubongdaBE.resource;
 
 import com.phamhieu2106.quanlygiaidaubongdaBE.dto.request.TeamRequest;
 import com.phamhieu2106.quanlygiaidaubongdaBE.service.TeamService;
