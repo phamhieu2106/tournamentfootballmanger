@@ -119,6 +119,7 @@ public class TournamentServiceImpl implements TournamentService {
             handleRemoveStanding(standings);
             //        Save tournament
             Tournament newTournament = tournamentRepository.save(object.map(tournament));
+            newTournament.setImage(image);
 //        Handle create Standing
             long numberStanding = handleCreateStandings(object.getIdTeams(), tournament);
 

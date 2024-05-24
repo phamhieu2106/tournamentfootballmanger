@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin
 @RequestMapping("api/tournaments")
 public class TournamentResource implements IResource<ResponseEntity<?>, TournamentRequest> {
 
