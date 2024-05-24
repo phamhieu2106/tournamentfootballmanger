@@ -7,7 +7,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Button, theme } from "antd";
+import { Layout, Menu, Button, theme, Avatar } from "antd";
 import NationalComponent from "./component/nation/NationalComponent";
 import { Footer } from "antd/es/layout/layout";
 import { Link, Route, Routes } from "react-router-dom";
@@ -25,6 +25,10 @@ import { FormAddStadiumComponent } from "./component/stadium/component/FormAddSt
 import { FormUpdateStadiumComponent } from "./component/stadium/component/FormUpdateStadiumComponent";
 import { TournamentComponent } from "./component/tournament/TournamentComponent";
 import { FormAddTournamentComponent } from "./component/tournament/component/FormAddTournamentComponent";
+import { NoAccessPageComponent } from "./component/error-page/403/NoAccessPageComponent";
+import { NotFoundPageComponent } from "./component/error-page/404/NotFoundPageComponent";
+import { ServerErrorPageComponent } from "./component/error-page/500/ServerErrorPageComponent";
+import { LoginPageComponent } from "./component/user/login/LoginPageComponent";
 const { Header, Sider, Content } = Layout;
 
 function App() {
@@ -68,7 +72,18 @@ function App() {
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="demo-logo-vertical" />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            backgroundColor: "red",
+          }}
+          className="demo-logo-vertical"
+        >
+          <Avatar size={40}>USER</Avatar>
+          <Avatar size={40}>USER</Avatar>
+        </div>
+
         <Menu
           theme="dark"
           mode="inline"
@@ -105,6 +120,10 @@ function App() {
         >
           <Routes>
             <Route path="/" element={<HomePageComponent />}></Route>
+            <Route path="/403" element={<NoAccessPageComponent />}></Route>
+            <Route path="/404" element={<NotFoundPageComponent />}></Route>
+            <Route path="/500" element={<ServerErrorPageComponent />}></Route>
+            <Route path="/login" element={<LoginPageComponent />}></Route>
             <Route
               path="/tournaments"
               element={<TournamentComponent />}
