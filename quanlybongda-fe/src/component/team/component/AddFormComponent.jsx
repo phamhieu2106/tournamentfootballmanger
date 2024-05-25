@@ -45,7 +45,7 @@ export const AddFormTeamComponent = () => {
     try {
       const result = await addTeam(values); // Add the new nation
       if (result) {
-        navigate("/teams");
+        navigate("/admin/teams");
         message.success("Thêm đội bóng thành công!");
       }
     } catch (error) {
@@ -74,7 +74,7 @@ export const AddFormTeamComponent = () => {
         <Divider style={{ fontWeight: "bolder", fontSize: 40 }}>
           Thêm Mới Đội Bóng
         </Divider>
-        <Link to={"/teams"}>
+        <Link to={"/admin/teams"}>
           <Button type="primary" style={{ marginBottom: 20 }}>
             Quay lại
           </Button>

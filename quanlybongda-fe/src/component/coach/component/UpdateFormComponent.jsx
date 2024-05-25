@@ -56,7 +56,7 @@ export const UpdateFormComponent = () => {
     try {
       const result = await updateCoach(id, values); // Add the new nation
       if (result) {
-        navigate("/coaches");
+        navigate("/admin/coaches");
         message.success("Cập nhật huấn luyện viên thành công!");
       }
     } catch (error) {

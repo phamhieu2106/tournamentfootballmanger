@@ -1,16 +1,16 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Divider, Form, Input } from "antd";
+import { RollbackOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Divider, Form, Input, Tooltip } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const LoginPageComponent = () => {
+export const ForgotPasswordPageComponent = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
   return (
     <>
       <Divider style={{ fontWeight: "bolder", fontSize: 40 }}>
-        Đăng Nhập
+        Quên Mật Khẩu
       </Divider>
       <Form
         style={{
@@ -27,43 +27,33 @@ export const LoginPageComponent = () => {
         }}
         onFinish={onFinish}
       >
+        <Form.Item style={{ display: "flex", justifyContent: "end" }}>
+          <Link to={"/login"}>
+            <Tooltip title="Quay lại">
+              <Button
+                type="primary"
+                shape="circle"
+                icon={<RollbackOutlined />}
+              ></Button>
+            </Tooltip>
+          </Link>
+        </Form.Item>
         <Form.Item
-          name="username"
+          label="Email"
+          name="email"
           rules={[
             {
+              type: "email",
               required: true,
-              message: "Please input your Username!",
+              message: "The input is not valid E-mail!",
             },
           ]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
+            placeholder="Email Address"
           />
         </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your Password!",
-            },
-          ]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-          />
-        </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-
-          <Link to={"/forgotpassword"}>Forgot password</Link>
-        </Form.Item>
-
         <Form.Item>
           <Button
             type="primary"
@@ -71,7 +61,7 @@ export const LoginPageComponent = () => {
             className="login-form-button"
             style={{ width: "100%" }}
           >
-            Log in
+            Verify Email
           </Button>
         </Form.Item>
       </Form>

@@ -47,7 +47,7 @@ export const UpdateTeamFormComponent = () => {
     try {
       const result = await updateTeam(id, values); // Add the new nation
       if (result) {
-        navigate("/teams");
+        navigate("/admin/teams");
         message.success("Cập nhật đội bóng thành công!");
       }
     } catch (error) {
@@ -99,7 +99,7 @@ export const UpdateTeamFormComponent = () => {
         <Divider style={{ fontWeight: "bolder", fontSize: 40 }}>
           Cập nhật Mới Đội Bóng
         </Divider>
-        <Link to={"/teams"}>
+        <Link to={"/admin/teams"}>
           <Button type="primary" style={{ marginBottom: 20 }}>
             Quay lại
           </Button>

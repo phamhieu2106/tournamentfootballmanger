@@ -67,7 +67,7 @@ export const FormAddTournamentComponent = () => {
     try {
       const result = await addTournament(values); // Add the new nation
       if (result) {
-        navigate("/tournaments");
+        navigate("/admin/tournaments");
         message.success("Thêm giải đấu thành công!");
       }
     } catch (error) {
@@ -85,7 +85,7 @@ export const FormAddTournamentComponent = () => {
         Thên Mới Giải Đấu
       </Divider>
 
-      <Link to={"/tournaments"}>
+      <Link to={"/admin/tournaments"}>
         <Button type="primary" style={{ marginBottom: 20 }}>
           Quay lại
         </Button>

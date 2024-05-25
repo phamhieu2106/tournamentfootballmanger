@@ -29,7 +29,7 @@ export const FormAddStadiumComponent = () => {
     try {
       const result = await addStadium(values); // Add the new nation
       if (result) {
-        navigate("/stadiums");
+        navigate("/admin/stadiums");
         message.success("Thêm sân vận động thành công!");
       }
     } catch (error) {
@@ -46,7 +46,7 @@ export const FormAddStadiumComponent = () => {
       <Divider style={{ fontWeight: "bolder", fontSize: 40 }}>
         Thêm Mới Sân Vận Động
       </Divider>
-      <Link to={"/stadiums"}>
+      <Link to={"/admin/stadiums"}>
         <Button type="primary" style={{ marginBottom: 20 }}>
           Quay lại
         </Button>

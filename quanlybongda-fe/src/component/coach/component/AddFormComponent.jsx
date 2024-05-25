@@ -38,7 +38,7 @@ export const AddFormComponent = () => {
     try {
       const result = await addCoach(values); // Add the new nation
       if (result) {
-        navigate("/coaches");
+        navigate("/admin/coaches");
         message.success("Thêm huấn luyện viên thành công!");
       }
     } catch (error) {
@@ -55,7 +55,7 @@ export const AddFormComponent = () => {
       <Divider style={{ fontWeight: "bolder", fontSize: 40 }}>
         Thêm Mới Huấn Luyện Viên
       </Divider>
-      <Link to={"/coaches"}>
+      <Link to={"/admin/coaches"}>
         <Button type="primary" style={{ marginBottom: 20 }}>
           Quay lại
         </Button>

@@ -39,7 +39,7 @@ export const FormUpdateStadiumComponent = () => {
     try {
       const result = await updateStadium(id, values); // Add the new nation
       if (result) {
-        navigate("/stadiums");
+        navigate("/admin/stadiums");
         message.success("Cập nhật sân vận động thành công!");
       }
     } catch (error) {
@@ -71,7 +71,7 @@ export const FormUpdateStadiumComponent = () => {
       <Divider style={{ fontWeight: "bolder", fontSize: 40 }}>
         Cập Nhật Sân Vận Động
       </Divider>
-      <Link to={"/stadiums"}>
+      <Link to={"/admin/stadiums"}>
         <Button type="primary" style={{ marginBottom: 20 }}>
           Quay lại
         </Button>

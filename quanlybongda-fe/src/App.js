@@ -1,16 +1,6 @@
-import React, { useState } from "react";
-import "./App.css";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu, Button, theme, Avatar } from "antd";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import NationalComponent from "./component/nation/NationalComponent";
-import { Footer } from "antd/es/layout/layout";
-import { Link, Route, Routes } from "react-router-dom";
 import PlayerComponent from "./component/player/PlayerComponent";
 import { PlayerAddComponent } from "./component/player/component/PlayerAddComponent";
 import { CoachComponent } from "./component/coach/CoachComponent";
@@ -29,150 +19,70 @@ import { NoAccessPageComponent } from "./component/error-page/403/NoAccessPageCo
 import { NotFoundPageComponent } from "./component/error-page/404/NotFoundPageComponent";
 import { ServerErrorPageComponent } from "./component/error-page/500/ServerErrorPageComponent";
 import { LoginPageComponent } from "./component/user/login/LoginPageComponent";
-const { Header, Sider, Content } = Layout;
+import MainLayoutComponent from "./component/layout/MainLayoutComponent";
+import { ForgotPasswordPageComponent } from "./component/user/forgot-password/ForgotPasswordPageComponent";
 
 function App() {
-  const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-
-  const items = [
-    {
-      key: "0",
-      icon: <UserOutlined />,
-      label: <Link to={"/"}>Trang Chủ</Link>,
-    },
-    {
-      key: "4",
-      icon: <VideoCameraOutlined />,
-      label: <Link to={"/tournaments"}>Giải Đấu</Link>,
-    },
-    {
-      key: "1",
-      icon: <UploadOutlined />,
-      label: <Link to={"/nations"}>Quốc Gia</Link>,
-    },
-    {
-      key: "3",
-      icon: <VideoCameraOutlined />,
-      label: <Link to={"/coaches"}>Huấn Luyện Viên</Link>,
-    },
-    {
-      key: "5",
-      icon: <VideoCameraOutlined />,
-      label: <Link to={"/teams"}>Đội Bóng</Link>,
-    },
-    {
-      key: "6",
-      icon: <VideoCameraOutlined />,
-      label: <Link to={"/stadiums"}>Sân Vận Động</Link>,
-    },
-  ];
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            backgroundColor: "red",
-          }}
-          className="demo-logo-vertical"
-        >
-          <Avatar size={40}>USER</Avatar>
-          <Avatar size={40}>USER</Avatar>
-        </div>
-
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["0"]}
-          items={items}
-        />
-      </Sider>
-      <Layout>
-        <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        >
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-            }}
-          />
-        </Header>
-        <Content
-          style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-          }}
-        >
-          <Routes>
-            <Route path="/" element={<HomePageComponent />}></Route>
-            <Route path="/403" element={<NoAccessPageComponent />}></Route>
-            <Route path="/404" element={<NotFoundPageComponent />}></Route>
-            <Route path="/500" element={<ServerErrorPageComponent />}></Route>
-            <Route path="/login" element={<LoginPageComponent />}></Route>
-            <Route
-              path="/tournaments"
-              element={<TournamentComponent />}
-            ></Route>
-            <Route
-              path="/tournaments/them-moi"
-              element={<FormAddTournamentComponent />}
-            ></Route>
-            <Route path="/nations" element={<NationalComponent />}></Route>
-            <Route path="/coaches" element={<CoachComponent />}></Route>
-            <Route
-              path="/coaches/them-moi"
-              element={<AddFormComponent />}
-            ></Route>
-            <Route
-              path="/coaches/:id"
-              element={<UpdateFormComponent />}
-            ></Route>
-            <Route path="/players" element={<PlayerComponent />}></Route>
-            <Route
-              path="/players/them-moi"
-              element={<PlayerAddComponent />}
-            ></Route>
-            <Route path="/teams" element={<TeamComponent />}></Route>
-            <Route
-              path="/teams/them-moi"
-              element={<AddFormTeamComponent />}
-            ></Route>
-            <Route
-              path="/teams/:id"
-              element={<UpdateTeamFormComponent />}
-            ></Route>
-            <Route path="/stadiums" element={<StadiumComponent />}></Route>
-            <Route
-              path="/stadiums/them-moi"
-              element={<FormAddStadiumComponent />}
-            ></Route>
-            <Route
-              path="/stadiums/:id"
-              element={<FormUpdateStadiumComponent />}
-            ></Route>
-          </Routes>
-        </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Website Quản Lý Giải Đấu Bóng Đá ©{new Date().getFullYear()} Được Tạo
-          Bởi Phieu2106
-        </Footer>
-      </Layout>
-    </Layout>
+    <Routes>
+      <Route path="/login" element={<LoginPageComponent />} />
+      <Route path="/forgotpassword" element={<ForgotPasswordPageComponent />} />
+      <Route
+        path="*"
+        element={
+          <MainLayoutComponent>
+            <Routes>
+              <Route path="*" element={<NotFoundPageComponent />} />
+              <Route path="/" element={<HomePageComponent />} />
+              <Route path="/403" element={<NoAccessPageComponent />} />
+              <Route path="/404" element={<NotFoundPageComponent />} />
+              <Route path="/500" element={<ServerErrorPageComponent />} />
+              <Route
+                path="/admin/tournaments"
+                element={<TournamentComponent />}
+              />
+              <Route
+                path="/admin/tournaments/them-moi"
+                element={<FormAddTournamentComponent />}
+              />
+              <Route path="/admin/nations" element={<NationalComponent />} />
+              <Route path="/admin/coaches" element={<CoachComponent />} />
+              <Route
+                path="/admin/coaches/them-moi"
+                element={<AddFormComponent />}
+              />
+              <Route
+                path="/admin/coaches/:id"
+                element={<UpdateFormComponent />}
+              />
+              <Route path="/admin/players" element={<PlayerComponent />} />
+              <Route
+                path="/admin/players/them-moi"
+                element={<PlayerAddComponent />}
+              />
+              <Route path="/admin/teams" element={<TeamComponent />} />
+              <Route
+                path="/admin/teams/them-moi"
+                element={<AddFormTeamComponent />}
+              />
+              <Route
+                path="/admin/teams/:id"
+                element={<UpdateTeamFormComponent />}
+              />
+              <Route path="/admin/stadiums" element={<StadiumComponent />} />
+              <Route
+                path="/admin/stadiums/them-moi"
+                element={<FormAddStadiumComponent />}
+              />
+              <Route
+                path="/admin/stadiums/:id"
+                element={<FormUpdateStadiumComponent />}
+              />
+            </Routes>
+          </MainLayoutComponent>
+        }
+      />
+    </Routes>
   );
 }
 
