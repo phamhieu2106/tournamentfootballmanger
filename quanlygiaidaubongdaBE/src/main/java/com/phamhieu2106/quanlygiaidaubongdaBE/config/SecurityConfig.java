@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("api/v1/auth/**")
+                .requestMatchers("api/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -39,6 +39,43 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(AbstractHttpConfigurer::disable)
+////                author Role
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers("/api/**").hasRole("ADMIN")
+//                        .requestMatchers("/client-api/**").permitAll()
+//                        .requestMatchers("/user-api/**").hasAnyRole("ADMIN", "CLIENT")
+//                        .anyRequest().authenticated()
+//                )
+////                Handle exception for 403 402
+//                .exceptionHandling(exceptionHandling -> exceptionHandling
+//                        .authenticationEntryPoint(authenticationEntryPoint())
+//                        .accessDeniedHandler(accessDeniedHandler()))
+////                Session
+//                .sessionManagement(session -> session
+//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                )
+//                .authenticationProvider(authenticationProvider)
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
+//    }
+//
+//    @Bean
+//    public AuthenticationEntryPoint authenticationEntryPoint() {
+//        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+//    }
+//
+//    @Bean
+//    public AccessDeniedHandler accessDeniedHandler() {
+//        return (request, response, accessDeniedException) -> {
+//            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+//        };
+//    }
 
 }
 
