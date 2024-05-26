@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin
 @RequestMapping("api/v1/auth")
 public class UserResource implements IResource<ResponseEntity<?>, UserRequest> {
 
