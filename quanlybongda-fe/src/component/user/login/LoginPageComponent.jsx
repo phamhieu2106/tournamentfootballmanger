@@ -1,11 +1,33 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Divider, Form, Input } from "antd";
-import React from "react";
+import { Button, Checkbox, Divider, Form, Input, message } from "antd";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { authentication } from "../../../api/UserAPI";
 
 export const LoginPageComponent = () => {
+  const [form] = Form.useForm();
+  const [token, setToken] = useState(null);
+
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
+    if (handleLogin(values)) {
+      form.resetFields();
+    }
+  };
+
+  const handleLogin = async (values) => {
+    try {
+      const result = await authentication(values);
+      if (result) {
+        setToken(result);
+        message.success("Đăng nhập thành công!");
+        return true;
+      }
+    } catch (error) {
+      console.error(error);
+      message.error("Error when trying login:", error);
+      return false;
+    }
   };
   return (
     <>
@@ -13,6 +35,7 @@ export const LoginPageComponent = () => {
         Đăng Nhập
       </Divider>
       <Form
+        form={form}
         style={{
           maxWidth: "300px",
           margin: "auto",
@@ -50,7 +73,7 @@ export const LoginPageComponent = () => {
             },
           ]}
         >
-          <Input
+          <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"

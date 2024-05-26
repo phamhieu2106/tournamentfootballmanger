@@ -1,5 +1,6 @@
 import { message } from "antd";
 import axios from "axios";
+import { redirectStatusResponse } from "../component/router/StatusRouter";
 
 const REST_API_BASE_URL = "http://localhost:8080/api/teams";
 
@@ -8,6 +9,9 @@ export const listTeams = async () => {
     const response = await axios.get(REST_API_BASE_URL);
     return response.data;
   } catch (err) {
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
     message.error(`${err.message} có lỗi khi cố gắng tải danh sách đội bóng.`);
     return null;
   }
@@ -16,10 +20,11 @@ export const getTeam = async (id) => {
   try {
     const response = await axios.get(`${REST_API_BASE_URL}/${id}`);
     return response.data;
-  } catch (error) {
-    message.error(
-      `${error.message} có lỗi khi cố gắng lấy thông tin đội bóng.`
-    );
+  } catch (err) {
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
+    message.error(`${err.message} có lỗi khi cố gắng lấy thông tin đội bóng.`);
     return null;
   }
 };
@@ -40,6 +45,9 @@ export const addTeam = async (values) => {
     });
     return response.data;
   } catch (err) {
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
     message.error(`${err} có lỗi khi cố gắng thêm đội bóng.`);
     return null;
   }
@@ -67,6 +75,9 @@ export const updateTeam = async (id, values) => {
     });
     return response.data;
   } catch (err) {
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
     message.error(`${err.error.message} có lỗi khi cố gắng cập nhật đội bóng.`);
     return null;
   }

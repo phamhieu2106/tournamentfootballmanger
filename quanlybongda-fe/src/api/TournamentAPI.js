@@ -1,5 +1,6 @@
 import { message } from "antd";
 import axios from "axios";
+import { redirectStatusResponse } from "../component/router/StatusRouter";
 
 const REST_API_BASE_URL = "http://localhost:8080/api/tournaments";
 
@@ -8,7 +9,9 @@ export const listTournaments = async () => {
     const response = await axios.get(REST_API_BASE_URL);
     return response.data;
   } catch (err) {
-    console.log(err);
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
     message.error(`${err.message} có lỗi khi cố gắng tải danh sách giải đấu.`);
     return null;
   }
@@ -17,10 +20,11 @@ export const getTournament = async (id) => {
   try {
     const response = await axios.get(`${REST_API_BASE_URL}/${id}`);
     return response.data;
-  } catch (error) {
-    message.error(
-      `${error.message} có lỗi khi cố gắng lấy thông tin giải đấu.`
-    );
+  } catch (err) {
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
+    message.error(`${err.message} có lỗi khi cố gắng lấy thông tin giải đấu.`);
     return null;
   }
 };
@@ -45,7 +49,9 @@ export const addTournament = async (values) => {
     });
     return response.data;
   } catch (err) {
-    console.log(err);
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
     message.error(`${err} có lỗi khi cố gắng thêm giải đấu.`);
   }
 };
@@ -69,6 +75,9 @@ export const updateTournament = async (id, values) => {
     });
     return response.data;
   } catch (err) {
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
     message.error(`${err.error.message} có lỗi khi cố gắng cập nhật giải đấu.`);
     return null;
   }

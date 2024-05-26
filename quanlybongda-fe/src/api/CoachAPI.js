@@ -1,5 +1,6 @@
 import { message } from "antd";
 import axios from "axios";
+import { redirectStatusResponse } from "../component/router/StatusRouter";
 
 const REST_API_BASE_URL = "http://localhost:8080/api/coaches";
 
@@ -8,6 +9,9 @@ export const listCoaches = async () => {
     const response = await axios.get(REST_API_BASE_URL);
     return response.data;
   } catch (err) {
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
     message.error(
       `${err.message} có lỗi khi cố gắng tải danh sách huấn luyện viên.`
     );
@@ -39,6 +43,9 @@ export const addCoach = async (values) => {
     const response = await axios.post(REST_API_BASE_URL, formData);
     return response.data;
   } catch (err) {
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
     message.error(`${err} có lỗi khi cố gắng thêm huấn luyện viên.`);
     return null;
   }
@@ -55,6 +62,9 @@ export const updateCoach = async (id, values) => {
     const response = await axios.put(`${REST_API_BASE_URL}/${id}`, formData);
     return response.data;
   } catch (err) {
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
     message.error(
       `${err.error.message} có lỗi khi cố gắng cập nhật huấn luyện viên.`
     );
@@ -67,6 +77,9 @@ export const removeCoach = async (id) => {
     const response = await axios.delete(`${REST_API_BASE_URL}/${id}`);
     return response.data;
   } catch (err) {
+    if (err.response && err.response.status !== 200) {
+      redirectStatusResponse(err.response.status);
+    }
     message.error(
       `${err.error.message} có lỗi khi cố gắng cập nhật huấn luyện viên.`
     );
