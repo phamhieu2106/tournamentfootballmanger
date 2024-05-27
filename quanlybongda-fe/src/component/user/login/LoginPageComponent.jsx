@@ -1,17 +1,44 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Divider, Form, Input, message } from "antd";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Button, Checkbox, Divider, Form, Input, notification } from "antd";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { authentication } from "../../../api/UserAPI";
+import Cookies from "js-cookie";
 
 export const LoginPageComponent = () => {
   const [form] = Form.useForm();
   const [token, setToken] = useState(null);
+  const navigate = useNavigate();
+  const [api, contextHolder] = notification.useNotification();
 
+  const openNotificationWithIcon = (values) => {
+    if (values === "error") {
+      api["error"]({
+        message: "Đăng nhập không thành công",
+        description: "Tài khoản không đúng hoặc không tồn tại trong hệ thống!",
+      });
+    } else {
+      api["success"]({
+        message: "Đăng nhập thành công",
+        description: "Đăng nhập thành công!",
+      });
+    }
+  };
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
     if (handleLogin(values)) {
       form.resetFields();
+    }
+  };
+
+  const handleRememberUser = (values) => {
+    if (values) {
+      localStorage.setItem("username", values.username);
+      localStorage.setItem("password", values.password);
+    } else {
+      // Nếu không ghi nhớ, xóa thông tin khỏi localStorage
+      localStorage.removeItem("username");
+      localStorage.removeItem("password");
     }
   };
 
@@ -20,20 +47,50 @@ export const LoginPageComponent = () => {
       const result = await authentication(values);
       if (result) {
         setToken(result);
-        message.success("Đăng nhập thành công!");
+        openNotificationWithIcon("success");
+        if (values.remember) {
+          handleRememberUser(values);
+        } else {
+          localStorage.removeItem("username");
+          localStorage.removeItem("password");
+        }
+        navigate("/admin");
         return true;
+      } else {
+        openNotificationWithIcon("error");
       }
     } catch (error) {
       console.error(error);
-      message.error("Error when trying login:", error);
       return false;
     }
   };
+
+  // useEffect
+  useEffect(() => {
+    if (token) {
+      // set Cookies expires in 1 day
+      Cookies.set("token", token, { expires: 1 });
+    }
+  }, [token]);
+
+  useEffect(() => {
+    const savedUsername = localStorage.getItem("username");
+    const savedPassword = localStorage.getItem("password");
+    if (savedUsername && savedPassword) {
+      form.setFieldsValue({
+        username: savedUsername,
+        password: savedPassword,
+        remember: true,
+      });
+    }
+  }, [form]);
+
   return (
     <>
       <Divider style={{ fontWeight: "bolder", fontSize: 40 }}>
         Đăng Nhập
       </Divider>
+      {contextHolder}
       <Form
         form={form}
         style={{
