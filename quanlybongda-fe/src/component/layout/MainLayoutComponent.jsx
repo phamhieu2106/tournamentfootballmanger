@@ -7,27 +7,36 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Footer } from "antd/es/layout/layout";
 import { theme } from "antd";
-
+import Cookies from "js-cookie";
 const { Header, Sider, Content } = Layout;
 
 const MainLayoutComponent = ({ children }) => {
+  const username = localStorage.getItem("username");
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    Cookies.remove("token");
+    navigate("/login");
+  };
+
   const items = [
     {
       key: "0",
       icon: <UserOutlined />,
-      label: <Link>User</Link>,
+      label: <Link>{username}</Link>,
       children: [
         {
           key: "-1",
           label: "Đăng xuất",
+          onClick: handleLogout,
         },
       ],
     },

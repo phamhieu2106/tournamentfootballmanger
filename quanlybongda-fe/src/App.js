@@ -33,7 +33,7 @@ function App() {
           <MainLayoutComponent>
             <Routes>
               <Route path="*" element={<NotFoundPageComponent />} />
-              <Route path="/" element={<HomePageComponent />} />
+              <Route path="/admin" element={<HomePageComponent />} />
               <Route path="/403" element={<NoAccessPageComponent />} />
               <Route path="/404" element={<NotFoundPageComponent />} />
               <Route path="/500" element={<ServerErrorPageComponent />} />

@@ -79,7 +79,6 @@ export const TableTournamentComponent = () => {
         image: item.image?.pictureURL,
       }));
       setData(row);
-      console.log(row);
     } catch (error) {
       console.log(error);
     } finally {

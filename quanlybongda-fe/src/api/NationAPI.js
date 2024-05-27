@@ -1,14 +1,32 @@
 import { message } from "antd";
 import axios from "axios";
 import { redirectStatusResponse } from "../component/router/StatusRouter";
+import Cookies from "js-cookie";
 
 const REST_API_BASE_URL = "http://localhost:8080/api/nations";
+const axiosInstance = axios.create({
+  baseURL: REST_API_BASE_URL,
+});
+// Add a request interceptor to include the Bearer token
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = Cookies.get("token");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export const listNations = async () => {
   try {
-    const response = await axios.get(REST_API_BASE_URL);
+    const response = await axiosInstance.get();
     return response.data;
   } catch (err) {
+    console.log(err);
     if (err.response && err.response.status !== 200) {
       redirectStatusResponse(err.response.status);
     }
@@ -19,7 +37,7 @@ export const listNations = async () => {
 
 export const getNation = async (id) => {
   try {
-    const response = await axios.get(`${REST_API_BASE_URL}/${id}`);
+    const response = await axiosInstance.get(`${REST_API_BASE_URL}/${id}`);
     return response.data;
   } catch (error) {
     if (error.response && error.response.status !== 200) {
@@ -39,7 +57,7 @@ export const addNation = async (values) => {
     formData.append("nationName", values.nationName);
     formData.append("nationCode", values.nationCode);
     formData.append("imageFile", values.imageFile.file.originFileObj);
-    const response = await axios.post(REST_API_BASE_URL, formData, {
+    const response = await axiosInstance.post(REST_API_BASE_URL, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -67,11 +85,15 @@ export const updateNation = async (id, values) => {
     } else {
       formData.append("imageFile", values.imageFile.file.originFileObj);
     }
-    const response = await axios.put(`${REST_API_BASE_URL}/${id}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axiosInstance.put(
+      `${REST_API_BASE_URL}/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     return response.data;
   } catch (err) {
     if (err.response && err.response.status !== 200) {

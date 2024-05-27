@@ -1,12 +1,29 @@
 import { message } from "antd";
 import axios from "axios";
 import { redirectStatusResponse } from "../component/router/StatusRouter";
+import Cookies from "js-cookie";
 
 const REST_API_BASE_URL = "http://localhost:8080/api/stadiums";
+const axiosInstance = axios.create({
+  baseURL: REST_API_BASE_URL,
+});
+// Add a request interceptor to include the Bearer token
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = Cookies.get("token");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export const listStadium = async () => {
   try {
-    const response = await axios.get(REST_API_BASE_URL);
+    const response = await axiosInstance.get(REST_API_BASE_URL);
     return response.data;
   } catch (err) {
     if (err.response && err.response.status !== 200) {
@@ -21,7 +38,7 @@ export const listStadium = async () => {
 
 export const getStadium = async (id) => {
   try {
-    const response = await axios.get(`${REST_API_BASE_URL}/${id}`);
+    const response = await axiosInstance.get(`${REST_API_BASE_URL}/${id}`);
     return response.data;
   } catch (err) {
     if (err.response && err.response.status !== 200) {
@@ -42,7 +59,7 @@ export const addStadium = async (values) => {
     formData.append("capacity", values.capacity);
     formData.append("location", values.location);
     formData.append("idTeam", values.idTeam ? values.idTeam : null);
-    const response = await axios.post(REST_API_BASE_URL, formData);
+    const response = await axiosInstance.post(REST_API_BASE_URL, formData);
     return response.data;
   } catch (err) {
     if (err.response && err.response.status !== 200) {
@@ -60,7 +77,10 @@ export const updateStadium = async (id, values) => {
     formData.append("capacity", values.capacity);
     formData.append("location", values.location);
     formData.append("idTeam", values.idTeam);
-    const response = await axios.put(`${REST_API_BASE_URL}/${id}`, formData);
+    const response = await axiosInstance.put(
+      `${REST_API_BASE_URL}/${id}`,
+      formData
+    );
     return response.data;
   } catch (err) {
     if (err.response && err.response.status !== 200) {

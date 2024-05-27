@@ -1,12 +1,29 @@
 import { message } from "antd";
 import axios from "axios";
 import { redirectStatusResponse } from "../component/router/StatusRouter";
+import Cookies from "js-cookie";
 
 const REST_API_BASE_URL = "http://localhost:8080/api/coaches";
+const axiosInstance = axios.create({
+  baseURL: REST_API_BASE_URL,
+});
+// Add a request interceptor to include the Bearer token
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = Cookies.get("token");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export const listCoaches = async () => {
   try {
-    const response = await axios.get(REST_API_BASE_URL);
+    const response = await axiosInstance.get(REST_API_BASE_URL);
     return response.data;
   } catch (err) {
     if (err.response && err.response.status !== 200) {
@@ -21,7 +38,7 @@ export const listCoaches = async () => {
 
 export const getCoach = async (id) => {
   try {
-    const response = await axios.get(`${REST_API_BASE_URL}/${id}`);
+    const response = await axiosInstance.get(`${REST_API_BASE_URL}/${id}`);
     return response.data;
   } catch (error) {
     message.error(
@@ -40,7 +57,7 @@ export const addCoach = async (values) => {
     formData.append("sex", values.sex);
     formData.append("idNational", values.idNation);
     formData.append("status", values.status);
-    const response = await axios.post(REST_API_BASE_URL, formData);
+    const response = await axiosInstance.post(REST_API_BASE_URL, formData);
     return response.data;
   } catch (err) {
     if (err.response && err.response.status !== 200) {
@@ -59,7 +76,10 @@ export const updateCoach = async (id, values) => {
     formData.append("sex", values.sex);
     formData.append("idNational", values.idNation);
     formData.append("status", values.status);
-    const response = await axios.put(`${REST_API_BASE_URL}/${id}`, formData);
+    const response = await axiosInstance.put(
+      `${REST_API_BASE_URL}/${id}`,
+      formData
+    );
     return response.data;
   } catch (err) {
     if (err.response && err.response.status !== 200) {
@@ -74,7 +94,7 @@ export const updateCoach = async (id, values) => {
 
 export const removeCoach = async (id) => {
   try {
-    const response = await axios.delete(`${REST_API_BASE_URL}/${id}`);
+    const response = await axiosInstance.delete(`${REST_API_BASE_URL}/${id}`);
     return response.data;
   } catch (err) {
     if (err.response && err.response.status !== 200) {
