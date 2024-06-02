@@ -4,10 +4,11 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.entity.Image;
 import com.phamhieu2106.quanlygiaidaubongdaBE.enumeration.TournamentStatus;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
-public class TournamentResponse {
+public class TournamentResponse implements Serializable {
     private Long id;
 
     private String nameTournament;
@@ -19,7 +20,7 @@ public class TournamentResponse {
     private Integer totalRound;
 
     private TournamentStatus status;
-    
+
     private Image image;
 
 

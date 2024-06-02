@@ -6,7 +6,9 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.entity.Team;
 import com.phamhieu2106.quanlygiaidaubongdaBE.enumeration.Position;
 import com.phamhieu2106.quanlygiaidaubongdaBE.enumeration.Sex;
 
-public class PlayerResponse {
+import java.io.Serializable;
+
+public class PlayerResponse implements Serializable {
 
     private Long id;
 
@@ -19,6 +21,6 @@ public class PlayerResponse {
     private National national;
 
     private Team team;
-    
+
     private Image image;
 }

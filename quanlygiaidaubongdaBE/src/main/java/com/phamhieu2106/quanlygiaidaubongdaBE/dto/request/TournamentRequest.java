@@ -31,16 +31,7 @@ public class TournamentRequest {
         tournament.setStartDate(this.getStartDate());
         tournament.setEndDate(this.getEndDate());
         tournament.setTotalRound(this.getTotalRound());
-
-        LocalDate now = LocalDate.now();
-
-        if (now.isBefore(this.startDate)) {
-            tournament.setTournamentStatus(TournamentStatus.COMING);
-        } else if (now.isAfter(this.startDate)) {
-            tournament.setTournamentStatus(TournamentStatus.STARTED);
-        } else {
-            tournament.setTournamentStatus(TournamentStatus.ENDED);
-        }
+        tournament.setTournamentStatus(TournamentStatus.COMING);
 
         return tournament;
     }

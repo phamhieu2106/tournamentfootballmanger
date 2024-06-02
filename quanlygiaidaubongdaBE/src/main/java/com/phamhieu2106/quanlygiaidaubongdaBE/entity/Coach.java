@@ -14,7 +14,7 @@ import java.sql.Date;
 @Setter
 @Builder
 @Table(name = "coach")
-public class Coach {
+public class Coach extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

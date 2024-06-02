@@ -4,8 +4,10 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.entity.Coach;
 import com.phamhieu2106.quanlygiaidaubongdaBE.entity.Image;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class TeamResponse {
+public class TeamResponse implements Serializable {
 
     private Long id;
     private String teamName;

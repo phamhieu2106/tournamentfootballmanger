@@ -171,4 +171,8 @@ public class TournamentServiceImpl implements TournamentService {
     private void handleRemoveStanding(List<Standing> standings) {
         standingRepository.deleteAll(standings);
     }
+
+    private void handleStatusUpdate() {
+
+    }
 }

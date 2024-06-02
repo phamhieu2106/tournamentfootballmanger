@@ -5,10 +5,11 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.enumeration.Sex;
 import com.phamhieu2106.quanlygiaidaubongdaBE.enumeration.Status;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
-public class CoachResponse {
+public class CoachResponse implements Serializable {
     private Long id;
     private String name;
     private Date dob;
