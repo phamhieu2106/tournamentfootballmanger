@@ -9,6 +9,7 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.repository.StadiumRepository;
 import com.phamhieu2106.quanlygiaidaubongdaBE.service.StadiumService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +17,8 @@ import java.util.List;
 @Service
 public class StadiumServiceImpl implements StadiumService {
 
+    private static final String REDIS_KEY_VALUE = "stadium";
     private final StadiumRepository stadiumRepository;
-
     private final ModelMapper modelMapper;
 
     @Autowired
@@ -38,6 +39,7 @@ public class StadiumServiceImpl implements StadiumService {
     }
 
     @Override
+    @Cacheable(value = REDIS_KEY_VALUE, key = "#id")
     public StadiumResponse getOne(Long id) {
         Stadium stadium = stadiumRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Not found Stadium with id: " + id));

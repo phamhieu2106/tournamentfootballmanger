@@ -11,6 +11,7 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.service.ImageService;
 import com.phamhieu2106.quanlygiaidaubongdaBE.service.TeamService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.util.Optional;
 @Service
 public class TeamServiceImpl implements TeamService {
 
+    private static final String REDIS_KEY_VALUE = "team";
     private final TeamRepository teamRepository;
     private final ImageService imageService;
     private final ModelMapper modelMapper;
@@ -48,6 +50,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    @Cacheable(value = REDIS_KEY_VALUE, key = "#id")
     public TeamResponse getOne(Long id) {
         Team team = teamRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Not found team with id: " + id));

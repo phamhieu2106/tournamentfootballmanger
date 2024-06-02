@@ -8,6 +8,7 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.repository.StandingRepository;
 import com.phamhieu2106.quanlygiaidaubongdaBE.service.StandingService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 public class StandingServiceImpl implements StandingService {
 
+    private static final String REDIS_KEY_VALUE = "standing";
     private final StandingRepository standingRepository;
     private final ModelMapper modelMapper;
 
@@ -35,6 +37,7 @@ public class StandingServiceImpl implements StandingService {
     }
 
     @Override
+    @Cacheable(value = REDIS_KEY_VALUE, key = "#id")
     public StandingResponse getOne(Long id) {
 
         Standing Standing = standingRepository.findById(id).orElseThrow(() ->

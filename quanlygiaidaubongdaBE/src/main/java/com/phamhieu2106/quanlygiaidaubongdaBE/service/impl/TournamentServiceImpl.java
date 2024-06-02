@@ -16,6 +16,7 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.service.TournamentService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ import java.util.Set;
 @Transactional
 public class TournamentServiceImpl implements TournamentService {
 
+    private static final String REDIS_KEY_VALUE = "tournament";
     private final TournamentRepository tournamentRepository;
     private final StandingRepository standingRepository;
     private final TeamRepository teamRepository;
@@ -59,6 +61,7 @@ public class TournamentServiceImpl implements TournamentService {
     }
 
     @Override
+    @Cacheable(value = REDIS_KEY_VALUE, key = "#id")
     public TournamentResponse getOne(Long id) {
 
         Tournament tournament = tournamentRepository.findById(id).orElseThrow(() ->

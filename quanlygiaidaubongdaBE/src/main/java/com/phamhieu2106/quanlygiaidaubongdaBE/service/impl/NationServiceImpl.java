@@ -10,6 +10,7 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.service.ImageService;
 import com.phamhieu2106.quanlygiaidaubongdaBE.service.NationService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,6 +20,8 @@ import java.util.Optional;
 @Service
 @Transactional
 public class NationServiceImpl implements NationService {
+
+    private static final String REDIS_KEY_VALUE = "nation";
 
     private final NationalRepository nationalRepository;
     private final ImageRepository imageRepository;
@@ -40,6 +43,7 @@ public class NationServiceImpl implements NationService {
     }
 
     @Override
+    @Cacheable(value = REDIS_KEY_VALUE, key = "#id")
     public National getOne(Long id) {
         return nationalRepository.findById(id).orElseThrow(()
                 -> new NotFoundException("Not found Nation with id: " + id));

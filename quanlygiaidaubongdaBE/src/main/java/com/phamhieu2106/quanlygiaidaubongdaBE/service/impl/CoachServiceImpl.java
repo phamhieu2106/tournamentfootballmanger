@@ -10,6 +10,7 @@ import com.phamhieu2106.quanlygiaidaubongdaBE.repository.CoachRepository;
 import com.phamhieu2106.quanlygiaidaubongdaBE.service.CoachService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Service
 public class CoachServiceImpl implements CoachService {
-
+    private static final String REDIS_KEY_VALUE = "coach";
     private final CoachRepository coachRepository;
     private final ModelMapper modelMapper;
 
@@ -42,6 +43,7 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
+    @Cacheable(value = REDIS_KEY_VALUE, key = "#id")
     public CoachResponse getOne(Long id) {
         Coach player = coachRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Not found coach with id: " + id));
