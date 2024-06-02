@@ -1,13 +1,12 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Divider, Form, Input, notification } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authentication } from "../../../api/UserAPI";
 import Cookies from "js-cookie";
 
 export const LoginPageComponent = () => {
   const [form] = Form.useForm();
-  const [token, setToken] = useState(null);
   const navigate = useNavigate();
   const [api, contextHolder] = notification.useNotification();
 
@@ -46,7 +45,7 @@ export const LoginPageComponent = () => {
     try {
       const result = await authentication(values);
       if (result) {
-        setToken(result);
+        handleSaveToken(result);
         openNotificationWithIcon("success");
         if (values.remember) {
           handleRememberUser(values);
@@ -65,13 +64,9 @@ export const LoginPageComponent = () => {
     }
   };
 
-  // useEffect
-  useEffect(() => {
-    if (token) {
-      // set Cookies expires in 1 day
-      Cookies.set("token", token, { expires: 1 });
-    }
-  }, [token]);
+  const handleSaveToken = (token) => {
+    Cookies.set("token", token, { expires: 1 });
+  };
 
   useEffect(() => {
     const savedUsername = localStorage.getItem("username");

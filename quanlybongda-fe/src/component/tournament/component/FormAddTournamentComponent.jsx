@@ -4,7 +4,6 @@ import {
   DatePicker,
   Divider,
   Form,
-  Image,
   Input,
   Select,
   Upload,
@@ -99,10 +98,10 @@ export const FormAddTournamentComponent = () => {
               message: "Không được tróng tên đội bóng!",
             },
           ]}
-          label="Tên:"
+          label="Tên Giải Đấu:"
           name="nameTournament"
         >
-          <Input placeholder="tên" />
+          <Input placeholder="tên giải đấu" />
         </Form.Item>
         <Form.Item
           label="Thời Gian:"
@@ -110,25 +109,11 @@ export const FormAddTournamentComponent = () => {
           rules={[
             {
               required: true,
-              message: "Không được để trống năm thành lập!",
+              message: "Không được để trống thời gian diễn ra và kết thúc!",
             },
           ]}
         >
           <RangePicker disabledDate={disabledDate} />
-        </Form.Item>
-        <Form.Item
-          label="Tổng Số Vòng:"
-          name="totalRound"
-          initialValue={0}
-          rules={[
-            {
-              min: 0,
-              required: true,
-              message: "Số vòng phải lớn hơn '10'!",
-            },
-          ]}
-        >
-          <Input type="number" />
         </Form.Item>
         <Form.Item
           label="Logo Giải Đấu"
@@ -161,19 +146,22 @@ export const FormAddTournamentComponent = () => {
               width: "100%",
             }}
             placeholder="Please select"
-            options={teams?.map((team) => ({
-              label: (
-                <span style={{ display: "flex", alignItems: "center" }}>
-                  <img
-                    src={team.image.pictureURL}
-                    alt={team.teamName}
-                    style={{ width: 20, height: 20, marginRight: 8 }}
-                  />
-                  {team.teamName}
-                </span>
-              ),
-              value: team.id,
-            }))}
+            options={
+              teams &&
+              teams?.map((team) => ({
+                label: (
+                  <span style={{ display: "flex", alignItems: "center" }}>
+                    <img
+                      src={team?.image.pictureURL}
+                      alt={team?.teamName}
+                      style={{ width: 20, height: 20, marginRight: 8 }}
+                    />
+                    {team?.teamName}
+                  </span>
+                ),
+                value: team.id,
+              }))
+            }
           />
         </Form.Item>
         <Form.Item>

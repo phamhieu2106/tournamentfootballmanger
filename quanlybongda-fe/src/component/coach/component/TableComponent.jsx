@@ -39,7 +39,7 @@ export const TableComponent = () => {
       key: "status",
       render: (_, record) => (
         <strong>
-          {record.status === "RETIREMENT" ? "RETIREMENT" : "COACHING"}
+          {record.status === "RETIREMENT" ? "Nghỉ hưu" : "Đang huấn luyện"}
         </strong>
       ),
     },

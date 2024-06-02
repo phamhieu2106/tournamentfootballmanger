@@ -43,7 +43,7 @@ const MainLayoutComponent = ({ children }) => {
     {
       key: "1",
       icon: <UserOutlined />,
-      label: <Link to="/">Trang Chủ</Link>,
+      label: <Link to="/admin">Trang Chủ</Link>,
     },
     {
       key: "2",

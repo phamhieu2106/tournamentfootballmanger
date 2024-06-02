@@ -52,7 +52,7 @@ export const addTournament = async (values) => {
   try {
     const formData = new FormData();
     formData.append("nameTournament", values.nameTournament);
-    formData.append("totalRound", values.totalRound);
+    formData.append("totalRound", Number(values.idTeams.length * 2));
     formData.append(
       "startDate",
       convertToLocalDate(values.timeTournament[0].$d)
@@ -105,11 +105,10 @@ export const updateTournament = async (id, values) => {
   }
 };
 
-// Convert the date strings to LocalDate format manually
 const convertToLocalDate = (dateString) => {
   const date = new Date(dateString);
-  const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Months are zero-based in JavaScript
-  const day = String(date.getUTCDate()).padStart(2, "0");
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };

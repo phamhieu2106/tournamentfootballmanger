@@ -75,7 +75,12 @@ export const TableTournamentComponent = () => {
         startDate: item.startDate,
         endDate: item.endDate,
         totalRound: item.totalRound,
-        status: item.status,
+        status:
+          item.status === "COMING"
+            ? "Sắp Diễn Ra"
+            : item.status === "STARTED"
+            ? "Đang Diễn Ra"
+            : "Đã Kết Thúc",
         image: item.image?.pictureURL,
       }));
       setData(row);

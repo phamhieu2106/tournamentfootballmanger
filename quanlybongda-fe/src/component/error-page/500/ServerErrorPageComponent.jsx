@@ -11,7 +11,7 @@ export const ServerErrorPageComponent = () => {
       extra={
         <Button type="primary">
           {" "}
-          <Link to={"/"}>Trở lại Trang Chủ</Link>
+          <Link to={"/admin"}>Trở lại Trang Chủ</Link>
         </Button>
       }
     />

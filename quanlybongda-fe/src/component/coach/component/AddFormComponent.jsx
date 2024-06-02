@@ -129,7 +129,16 @@ export const AddFormComponent = () => {
         >
           <Select
             options={nations?.map((nation) => ({
-              label: nation.nationName,
+              label: (
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <img
+                    src={nation?.image.pictureURL}
+                    alt={nation?.nationName}
+                    style={{ width: 30, height: 20, marginRight: 8 }}
+                  />
+                  {nation?.nationName}
+                </span>
+              ),
               value: nation.id,
             }))}
           />

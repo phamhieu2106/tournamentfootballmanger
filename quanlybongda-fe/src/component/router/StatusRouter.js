@@ -5,6 +5,9 @@ const NOT_FOUND_URL = "http://localhost:3000/404";
 
 export const redirectStatusResponse = (status) => {
   switch (status) {
+    case 401:
+      window.location.href = UNAUTHEN_URL;
+      break;
     case 403:
       window.location.href = UNAUTHEN_URL;
       break;

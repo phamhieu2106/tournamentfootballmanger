@@ -90,10 +90,13 @@ export const FormAddStadiumComponent = () => {
         </Form.Item>
         <Form.Item label="Đội bóng:" name="idTeam">
           <Select
-            options={teams.map((team) => ({
-              label: team.teamName,
-              value: team.id,
-            }))}
+            options={
+              teams &&
+              teams?.map((team) => ({
+                label: team.teamName,
+                value: team.id,
+              }))
+            }
           />
         </Form.Item>
         <Form.Item>
