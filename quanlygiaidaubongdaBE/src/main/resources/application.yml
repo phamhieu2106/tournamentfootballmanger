@@ -3,8 +3,8 @@ spring:
     name: quanlygiaidaubongdaBE
   datasource:
     url: jdbc:mysql://localhost:3306/quanlygiaidaubongda?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&useSSL=false
-    username: root
-    password: datn20232024
+    username: ${USERNAME:}
+    password: ${PASSWORD:}
   cache:
     type: redis
     redis:
@@ -19,7 +19,7 @@ spring:
       host: localhost
       port: 6379
 #Cloud
-CLOUDINARY_CLOUD_NAME: ${CLOUD_NAME}
-CLOUDINARY_API_KEY: ${API_KEY}
-CLOUDINARY_API_SECRET: ${API_SECRET}
+CLOUDINARY_CLOUD_NAME: ${CLOUD_NAME:}
+CLOUDINARY_API_KEY: ${API_KEY:}
+CLOUDINARY_API_SECRET: ${API_SECRET:}
 
