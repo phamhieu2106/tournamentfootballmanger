@@ -96,7 +96,7 @@ public class TournamentServiceImpl implements TournamentService {
 
         if ("default.jpg".equals(object.getImageFile().getOriginalFilename())) {
 
-            List<Standing> standings = getAllStanding(tournament);
+            Set<Standing> standings = getAllStanding(tournament);
             //       Remove Standing
             handleRemoveStanding(standings);
             //        Save tournament
@@ -117,7 +117,7 @@ public class TournamentServiceImpl implements TournamentService {
                 image = imageService.uploadImage(object.getImageFile());
             }
 
-            List<Standing> standings = getAllStanding(tournament);
+            Set<Standing> standings = getAllStanding(tournament);
             //       Remove Standing
             handleRemoveStanding(standings);
             //        Save tournament
@@ -140,7 +140,7 @@ public class TournamentServiceImpl implements TournamentService {
         return null;
     }
 
-    private List<Standing> getAllStanding(Tournament tournament) {
+    private Set<Standing> getAllStanding(Tournament tournament) {
         return standingRepository.findAllByTournament(tournament);
     }
 
@@ -168,11 +168,8 @@ public class TournamentServiceImpl implements TournamentService {
         standingRepository.save(standing);
     }
 
-    private void handleRemoveStanding(List<Standing> standings) {
+    private void handleRemoveStanding(Set<Standing> standings) {
         standingRepository.deleteAll(standings);
     }
 
-    private void handleStatusUpdate() {
-
-    }
 }

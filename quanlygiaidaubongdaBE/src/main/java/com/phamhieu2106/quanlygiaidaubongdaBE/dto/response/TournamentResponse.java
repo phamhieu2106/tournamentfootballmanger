@@ -21,6 +21,7 @@ public class TournamentResponse implements Serializable {
 
     private TournamentStatus status;
 
+
     private Image image;
 
 

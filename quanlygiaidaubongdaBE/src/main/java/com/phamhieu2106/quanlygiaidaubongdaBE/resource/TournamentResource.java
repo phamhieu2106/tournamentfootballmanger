@@ -48,4 +48,5 @@ public class TournamentResource implements IResource<ResponseEntity<?>, Tourname
     public ResponseEntity<?> remove(Long id) {
         return ResponseEntity.ok(tournamentService.getAll());
     }
+
 }
