@@ -78,6 +78,7 @@ export const FormAddTournamentComponent = () => {
   useEffect(() => {
     fetchDataTeams();
   }, []);
+
   return (
     <>
       <Divider style={{ fontWeight: "bolder", fontSize: 40 }}>

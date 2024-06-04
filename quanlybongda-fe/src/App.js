@@ -21,6 +21,7 @@ import { ServerErrorPageComponent } from "./component/error-page/500/ServerError
 import { LoginPageComponent } from "./component/user/login/LoginPageComponent";
 import MainLayoutComponent from "./component/layout/MainLayoutComponent";
 import { ForgotPasswordPageComponent } from "./component/user/forgot-password/ForgotPasswordPageComponent";
+import { FormUpdateTournamentComponent } from "./component/tournament/component/FormUpdateTournamentComponent";
 
 function App() {
   return (
@@ -44,6 +45,10 @@ function App() {
               <Route
                 path="/admin/tournaments/them-moi"
                 element={<FormAddTournamentComponent />}
+              />
+              <Route
+                path="/admin/tournaments/:id"
+                element={<FormUpdateTournamentComponent />}
               />
               <Route path="/admin/nations" element={<NationalComponent />} />
               <Route path="/admin/coaches" element={<CoachComponent />} />
