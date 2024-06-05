@@ -20,8 +20,7 @@ public class TournamentResponse implements Serializable {
     private Integer totalRound;
 
     private TournamentStatus status;
-
-
+    
     private Image image;
 
 

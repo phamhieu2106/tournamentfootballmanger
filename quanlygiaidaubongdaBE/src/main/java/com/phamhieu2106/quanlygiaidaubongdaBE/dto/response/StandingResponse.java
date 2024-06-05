@@ -1,7 +1,6 @@
 package com.phamhieu2106.quanlygiaidaubongdaBE.dto.response;
 
 import com.phamhieu2106.quanlygiaidaubongdaBE.entity.Team;
-import com.phamhieu2106.quanlygiaidaubongdaBE.entity.Tournament;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,7 +9,10 @@ import java.io.Serializable;
 public class StandingResponse implements Serializable {
     private Long id;
     private Integer points;
+    private Integer win;
+    private Integer loss;
+    private Integer draw;
     private Integer matchPlayed;
     private Team team;
-    private Tournament tournament;
+//    private Tournament tournament;
 }

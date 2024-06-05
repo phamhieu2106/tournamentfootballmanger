@@ -19,6 +19,9 @@ public class Standing extends BaseEntity {
     private Integer points;
 
     private Integer matchPlayed;
+    private Integer win;
+    private Integer draw;
+    private Integer loss;
 
     @ManyToOne
     @JoinColumn(name = "id_team", referencedColumnName = "id")

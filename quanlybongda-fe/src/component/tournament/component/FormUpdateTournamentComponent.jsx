@@ -1,14 +1,17 @@
-import { UploadOutlined } from "@ant-design/icons";
+import { EditFilled, UploadOutlined } from "@ant-design/icons";
 import {
   Button,
   Card,
   DatePicker,
   Divider,
+  Flex,
   Form,
   Image,
   Input,
   Select,
   Space,
+  Table,
+  Tooltip,
   Upload,
   message,
 } from "antd";
@@ -18,6 +21,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { listTeams } from "../../../api/TeamAPI";
+import { listStanding } from "../../../api/StandingAPI";
 
 dayjs.extend(customParseFormat);
 const { RangePicker } = DatePicker;
@@ -34,6 +38,7 @@ export const FormUpdateTournamentComponent = () => {
   const [uploading, setUploading] = useState(true);
   const [teams, setTeams] = useState([]);
   const [tournament, setTournament] = useState(null);
+  const [standings, setStandings] = useState([]);
   const [form] = Form.useForm();
   // Props
   const prop = {
@@ -50,6 +55,53 @@ export const FormUpdateTournamentComponent = () => {
         message.error(`${info.file.name} có lỗi khi cố gắng tải ảnh lên.`);
       }
     },
+  };
+  const columns = [
+    {
+      title: "Câu Lạc Bộ",
+      dataIndex: "club",
+      width: "30%",
+    },
+    {
+      title: "Số Trận",
+      dataIndex: "matchPlayed",
+      sorter: (a, b) => a.matchPlayed - b.matchPlayed,
+    },
+    {
+      title: "Thắng",
+      dataIndex: "win",
+      sorter: (a, b) => a.win - b.win,
+    },
+    {
+      title: "Hòa",
+      dataIndex: "draw",
+      sorter: (a, b) => a.draw - b.draw,
+    },
+    {
+      title: "Thua",
+      dataIndex: "loss",
+      sorter: (a, b) => a.loss - b.loss,
+    },
+    {
+      title: "Điểm",
+      dataIndex: "points",
+      sorter: (a, b) => a.points - b.points,
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      render: (_, record) => (
+        <Space size="middle">
+          <Tooltip title="cập nhật">
+            <Button type="primary" shape="circle" icon={<EditFilled />} />
+          </Tooltip>
+        </Space>
+      ),
+    },
+  ];
+
+  const onChange = (pagination, filters, sorter, extra) => {
+    console.log("params", pagination, filters, sorter, extra);
   };
   // Function
   const onFinish = async (values) => {
@@ -76,6 +128,15 @@ export const FormUpdateTournamentComponent = () => {
     }
   };
 
+  const fetchDataStandings = async () => {
+    try {
+      const result = await listStanding(id);
+      setStandings(mapStandingJsonToRow(result));
+      mapIdTeams(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleAddTournament = async (values) => {
     // Function to handle adding a new nation
     try {
@@ -89,10 +150,37 @@ export const FormUpdateTournamentComponent = () => {
     }
   };
 
+  const mapIdTeams = (data) => {
+    form.setFieldValue(
+      "idTeams",
+      data.map((item) => item.id)
+    );
+  };
+
+  // Map Standings
+  const mapStandingJsonToRow = (data) => {
+    return data.map((item, index) => ({
+      key: index,
+      club: (
+        <div>
+          {index + 1}{" "}
+          <Image width={20} src={item.team.image.pictureURL}></Image>{" "}
+          <>{item.team.teamName}</>
+        </div>
+      ),
+      matchPlayed: item.matchPlayed,
+      win: item.win,
+      loss: item.loss,
+      draw: item.draw,
+      points: <strong>{item.points}</strong>,
+    }));
+  };
   // UseEffect
   useEffect(() => {
     fetchDataTeams();
     fetchDataTournament();
+    fetchDataStandings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -106,16 +194,34 @@ export const FormUpdateTournamentComponent = () => {
       });
       console.log(tournament);
     }
-  }, [tournament]);
+  }, [form, tournament]);
+
   return (
     <>
       <Divider style={{ fontWeight: "bolder", fontSize: 40 }}>
         Cập Nhật Giải Đấu
       </Divider>
 
-      <Space direction="vertical" size={16}>
-        <Card title="Thông tin giải đấu" style={{ width: 300 }}>
-          <Form layout="vertical" form={form} onFinish={onFinish}>
+      <Flex justify="space-between" align="center">
+        <Card
+          title="Thông tin giải đấu"
+          style={{ width: 400 }}
+          extra={
+            tournament?.status === "STARTED"
+              ? "Giải đấu đã bắt đầu"
+              : tournament?.status === "ENDED"
+              ? "Giải đấu đã kết thúc"
+              : ""
+          }
+        >
+          <Form
+            layout="vertical"
+            form={form}
+            onFinish={onFinish}
+            disabled={
+              tournament?.status === "STARTED" || tournament?.status === "ENDED"
+            }
+          >
             <Form.Item
               rules={[
                 {
@@ -199,7 +305,10 @@ export const FormUpdateTournamentComponent = () => {
             </Form.Item>
           </Form>
         </Card>
-      </Space>
+        <Card title="Bảng xếp hạng" style={{ width: 800 }}>
+          <Table columns={columns} dataSource={standings} onChange={onChange} />
+        </Card>
+      </Flex>
     </>
   );
 };

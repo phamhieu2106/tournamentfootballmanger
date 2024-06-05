@@ -84,7 +84,6 @@ public class StandingServiceImpl implements StandingService {
         }
 
         Set<Standing> standings = standingRepository.findAllByTournament(tournament);
-
         return standings.stream().map(standing
                 -> modelMapper.map(standing, StandingResponse.class)).collect(Collectors.toSet());
     }

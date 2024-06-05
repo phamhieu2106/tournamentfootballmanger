@@ -119,9 +119,9 @@ export const AddFormTeamComponent = () => {
           </Form.Item>
           <Form.Item label="Huấn luyện viên:" name="idCoach">
             <Select
-              options={coaches?.map((coach) => ({
-                label: coach.name,
-                value: coach.id,
+              options={coaches && coaches?.map((coach) => ({
+                label: coach?.name,
+                value: coach?.id,
               }))}
             />
           </Form.Item>
